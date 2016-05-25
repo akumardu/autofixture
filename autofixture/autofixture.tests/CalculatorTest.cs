@@ -6,7 +6,7 @@ namespace autofixture.tests
     using Ploeh.AutoFixture;
 
     [TestClass]
-    public class UnitTest1
+    public class CalculatorTest
     {
         [TestMethod]
         public void Traditional()
@@ -34,6 +34,21 @@ namespace autofixture.tests
 
             //Assert
             Assert.IsTrue(calc.Value < 0);
+        }
+
+        [TestMethod]
+        public void TestAddMethod()
+        {
+            // Arrange
+            var fixture = new Fixture();
+            var sut = new Calculator();
+            int num = fixture.Create<int>();
+
+            // Act
+            sut.Add(num);
+
+            // Assert
+            Assert.AreEqual(num, sut.Value);
         }
     }
 }

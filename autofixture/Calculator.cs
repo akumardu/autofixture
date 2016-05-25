@@ -14,5 +14,10 @@ namespace autofixture
         {
             this.Value -= number;
         }
+
+        public void Add(int number)
+        {
+            this.Value += number;
+        }
     }
 }
