@@ -1,8 +1,10 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿// <copyright file="FlightDetailsTest.cs" company="Microsoft">Copyright (c) Microsoft. All rights reserved.</copyright>
+using System;
 
 namespace autofixture.tests
 {
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
     using Ploeh.AutoFixture;
 
     [TestClass]
@@ -16,58 +18,6 @@ namespace autofixture.tests
             // Sets all string instances to the given string
             fixture.Inject("LHR");
             var flight = fixture.Create<FlightDetails>();
-
-
-            
-
-            
-
-           
-
-
-        }
-
-        [TestMethod]
-        public void TestObjectInjection()
-        {
-            var fixture = new Fixture();
-
-            // Sets all object instances to the given instance
-            fixture.Inject(
-                new FlightDetails
-                {
-                    DepartureAirportCode = "HEL",
-                    ArrivalAirportCode = "BEL",
-                    FlightDuration = TimeSpan.FromHours(1),
-                    AirlineName = "AKD airs"
-                }
-                );
-
-            var flights = fixture.CreateMany<FlightDetails>();
-        }
-
-        [TestMethod]
-        public void TestOmitSpecificProperties()
-        {
-            var fixture = new Fixture();
-
-            // Do not create specific properties
-            var flightWithoutSpecificProperties = fixture.Build<FlightDetails>()
-                .Without(x => x.ArrivalAirportCode)
-                .Without(x => x.DepartureAirportCode)
-                .Create();
-
-        }
-
-        [TestMethod]
-        public void TestOmitAllAutomaticProperties()
-        {
-            var fixture = new Fixture();
-
-            // Omits all automatic properties
-            var flightWithoutAutoProperties = fixture.Build<FlightDetails>()
-                .OmitAutoProperties()
-                .Create();
         }
 
         [TestMethod]
@@ -105,6 +55,48 @@ namespace autofixture.tests
             // use Custom Specimen Builder
             fixture.Customizations.Add(new AirportCodeSpecimenBuilder());
             var flight = fixture.Create<FlightDetails>();
+        }
+
+        [TestMethod]
+        public void TestObjectInjection()
+        {
+            var fixture = new Fixture();
+
+            // Sets all object instances to the given instance
+            fixture.Inject(
+                new FlightDetails
+                {
+                    DepartureAirportCode = "HEL",
+                    ArrivalAirportCode = "BEL",
+                    FlightDuration = TimeSpan.FromHours(1),
+                    AirlineName = "AKD airs"
+                }
+                );
+
+            var flights = fixture.CreateMany<FlightDetails>();
+        }
+
+        [TestMethod]
+        public void TestOmitAllAutomaticProperties()
+        {
+            var fixture = new Fixture();
+
+            // Omits all automatic properties
+            var flightWithoutAutoProperties = fixture.Build<FlightDetails>()
+                .OmitAutoProperties()
+                .Create();
+        }
+
+        [TestMethod]
+        public void TestOmitSpecificProperties()
+        {
+            var fixture = new Fixture();
+
+            // Do not create specific properties
+            var flightWithoutSpecificProperties = fixture.Build<FlightDetails>()
+                .Without(x => x.ArrivalAirportCode)
+                .Without(x => x.DepartureAirportCode)
+                .Create();
         }
     }
 }
